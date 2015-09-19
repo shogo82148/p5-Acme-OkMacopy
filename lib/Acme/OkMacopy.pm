@@ -5,7 +5,12 @@ use warnings;
 
 our $VERSION = "0.01";
 
+use Test::More;
+use Exporter 'import';
 
+our @EXPORT = qw/ok_macopy/;
+
+sub ok_macopy { goto &ok }
 
 1;
 __END__
@@ -18,11 +23,17 @@ Acme::OkMacopy - It's new $module
 
 =head1 SYNOPSIS
 
+    use Test::More;
     use Acme::OkMacopy;
+
+    ok_macopy $got eq $expected, $test_name;
+
+    done_testing
 
 =head1 DESCRIPTION
 
-Acme::OkMacopy is ...
+Acme::OkMacopy provides ok_macopy.
+It is the alias of Test::More::ok.
 
 =head1 LICENSE
 
