@@ -1,0 +1,20 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ['ubuntu-18.04', 'macOS-10.14', 'windows-2019']
+        perl: [ '5.30', '5.28' ]
+    name: Node ${{ matrix.perl }} sample
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup node
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.node }}
+      - run: cpanm --installdeps .
+      - run: prove -lv t
